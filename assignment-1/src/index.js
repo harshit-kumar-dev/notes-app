@@ -10,9 +10,12 @@ const startServer = async () => {
     await connectDB(); //  DB first
     console.log("ENV CHECK:", process.env.MONGO_URL);
 
-    app.listen(PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}`);
-    });
+    if (process.env.NODE_ENV !== "production") {
+      app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+      });
+    }
+
 
   } catch (error) {
     console.error("Failed to start server:", error.message);
